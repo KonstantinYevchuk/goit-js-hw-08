@@ -24,25 +24,26 @@ function inputCallBack(evt) {
 function formCallBack(evt) {
     
     evt.preventDefault();
-    const savedInfo = localStorage.getItem(KEY);
-    const savedInfoParsed = JSON.parse(savedInfo); 
-    console.log(savedInfoParsed)
+    // const savedInfo = localStorage.getItem(KEY);
+    // const savedInfoParsed = JSON.parse(savedInfo); 
+    // console.log(savedInfoParsed)
+    console.log(arrayData);
     evt.currentTarget.reset();
     localStorage.removeItem(KEY);
     
 }
 
 function savedInfo() {
-    
-    try { 
-        const savedStoradgeInfo = localStorage.getItem(KEY)
-        const infoParse = JSON.parse(savedStoradgeInfo);
-        if(infoParse) {
-            emailEl.value = infoParse.email;
-            messageEl.value = infoParse.message;
-        }
-      } catch (error) {
-        console.log(error);
-      }
-      
-}
+    try {
+    const savedStoradgeInfo = localStorage.getItem(KEY);
+   
+    if (savedStoradgeInfo) {
+    arrayData = JSON.parse(savedStoradgeInfo);
+    Object.fromEntries(arrayData).forEach(([key, value]) => {
+    formEl.elements[key] = value.trim();
+         });
+       }
+     } catch (error) {
+    console.log(error);
+     }
+   } 
